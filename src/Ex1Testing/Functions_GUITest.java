@@ -87,7 +87,7 @@ class Functions_GUITest {
 		//fail("Not yet implemented");
 	}
 	public static functions FunctionsFactory() {
-		functions ans = new Functions_GUI();
+		functions ans = new (Functions_GUI);
 		String s1 = "3.1 +2.4x^2 -x^4";
 		String s2 = "5 +2x -3.3x +0.1x^5";
 		String[] s3 = {"x +3","x -2", "x -4"};
