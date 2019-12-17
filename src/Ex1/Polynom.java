@@ -70,7 +70,7 @@ public class Polynom implements Polynom_able{
 		}
 		return totalSum;
 	}
-
+	//Take polynom and add him to other polynom
 	@Override
 	public void add(Polynom_able p1)
 	{
@@ -84,7 +84,7 @@ public class Polynom implements Polynom_able{
 			add(current);
 		}
 	}
-
+	//Take monom and add him to the polynom
 	@Override
 	public void add(Monom m1)
 	{

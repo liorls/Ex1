@@ -115,9 +115,9 @@ public class ComplexFunction implements complex_function{
 	 */
 	@Override
 	public double f(double x) {
-		double ans = 0;
 		double ansL = this.l.f(x);
 		double ansR = this.r.f(x);
+		
 		if(this.op.toString().equals("Plus"))
 			return (ansL + ansR);
 		if(this.op.toString().equals("Times"))
@@ -131,7 +131,7 @@ public class ComplexFunction implements complex_function{
 		if(this.op.toString().equals("Comp"))
 			return l.f(ansR);
 
-		return ans;
+		return 0;
 	}
 
 	@Override
@@ -201,8 +201,15 @@ public class ComplexFunction implements complex_function{
 		this.r = f1;
 	}
 
-	//TODO equal
-	
+	/**
+	 * Check between the Strings of this ComplexFunction and another given ComplexFunction.
+	 * Returns true or false.
+	 */
+	public boolean equal(ComplexFunction ans) {
+		String cf1 = this.toString();
+		String cf2 = ans.toString();
+		return cf1.equals(cf2);
+		}
 	
 	@Override
 	public function left() {

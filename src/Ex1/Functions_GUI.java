@@ -1,5 +1,7 @@
 package Ex1;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,9 +15,13 @@ import java.util.LinkedList;
 import com.google.*;
 import com.google.gson.Gson;
 
+import Ex1.StdDraw;
+
 public class Functions_GUI implements functions {
 	public LinkedList<function> list;
 
+	public static Color[] Colors = {Color.blue, Color.cyan, Color.MAGENTA, Color.ORANGE,
+			Color.red, Color.GREEN, Color.PINK};
 
 	@Override
 	public boolean add(function arg0) {
@@ -137,27 +143,82 @@ public class Functions_GUI implements functions {
 			return;
 		}
 	}
-	
-	
-	//TODO equal
-	
-	
-	@Override
+
+
+	public boolean equals(Functions_GUI fg) {
+		if(this.toString().equals(fg.toString())) {
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override 
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
-		// TODO Auto-generated method stub
-		try {
-			PolynomGraph pg = new PolynomGraph()
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}catch (Exception e) {
-			e.printStackTrace();
+		StdDraw.setCanvasSize(width,height);
+		StdDraw.setXscale(rx.get_min(), rx.get_max());
+		StdDraw.setYscale(ry.get_min(), ry.get_max());
+
+		double lenX = Math.abs((rx.get_max()) - (rx.get_min()));
+		double lenY = Math.abs((ry.get_max()) - (ry.get_min()));
+
+		// vertical lines 
+		StdDraw.setPenColor(Color.LIGHT_GRAY);
+		for (int i = 0; i <= lenX; i++) {
+			StdDraw.line(rx.get_min(), ry.get_min(), rx.get_min(), ry.get_max());
+		}
+		// horizontal  lines 
+		for (double i = 0 ; i <= lenY; i++) {
+			StdDraw.line(rx.get_min(), ry.get_min(), rx.get_max(), ry.get_min());
+		}
+
+		////////x axis 
+		StdDraw.setPenColor(Color.BLACK);
+		StdDraw.setPenRadius(0.005);
+		StdDraw.line(rx.get_min(),0,rx.get_max(),0);
+		StdDraw.setFont(new Font("TimesRoman", Font.BOLD, 15));
+		for (int i = 0; i <= lenX; i++) {
+			StdDraw.text(rx.get_min(), -0.11, ("" + rx.get_min()));
+		}
+		//////// y axis	
+		StdDraw.line(0,ry.get_min(),0,ry.get_max());
+		for (double i = 0; i <= lenY; i++) {
+			StdDraw.text(-0.11, ry.get_min(), ("" + ry.get_min()));
+		}
+
+		// The function
+		double lenstep = (rx.get_max()-rx.get_min())/(resolution);
+		for (int i= 0; i < this.list.size(); i++) {
+			for (int j = 0; j < resolution; j++) {
+				StdDraw.setPenColor(Colors[i%(Colors.length)]);
+				StdDraw.setPenRadius(0.003);
+				StdDraw.line(rx.get_min(),this.list.get(i).f(rx.get_min()),((rx.get_min())+lenstep),this.list.get(i).f(((rx.get_min())+lenstep)));
+	
+			}
 		}
 	}
 
 	@Override
 	public void drawFunctions(String json_file) {
-		Gson gson = new Gson();
-		String json = gson.toJson(json_file);
+		try {
+			Gson gson = new Gson();
+			FileReader reader = new FileReader(json_file);
+			GUI_params gp = gson.fromJson(reader,GUI_params.class);
+			Range rx = new Range(gp.Range_X[0], gp.Range_X[1]);
+			Range ry = new Range(gp.Range_Y[0], gp.Range_Y[1]);
+			this.drawFunctions(gp.Width, gp.Height, rx, ry, gp.Resolution);
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	class GUI_params{
+		public int Width;
+		public int Height;
+		public int Resolution;
+		public double []Range_X;
+		public double []Range_Y;
 	}
 
 }

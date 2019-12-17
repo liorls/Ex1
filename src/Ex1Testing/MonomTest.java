@@ -35,14 +35,14 @@ class MonomTest {
 	void equalesTest() {
 		m = new Monom("2x^3");
 		m0 = new Monom("2x^3");
-		
-		m.equals(m);
-		try {
-			m.equals(m0);
-			
-		} catch (Exception e) {
-			e.getMessage();
-		}
+		assertEquals(m, m.equals(m0));
+//		m.equals(m);
+//		try {
+//			m.equals(m0);
+//			
+//		} catch (Exception e) {
+//			e.getMessage();
+//		}
 	}
 	
 	@Test
