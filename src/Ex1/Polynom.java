@@ -18,6 +18,9 @@ import java.util.ArrayList; // import the ArrayList class
  */
 public class Polynom implements Polynom_able{
 
+	public ArrayList<Monom> expression = new ArrayList<Monom>();
+
+	
 	/**
 	 * Zero (empty polynom)
 	 */
@@ -232,15 +235,9 @@ public class Polynom implements Polynom_able{
 		return expression.iterator();
 	}
 
-
-
-	public ArrayList<Monom> expression = new ArrayList<Monom>();
-
-
-
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		Polynom ans = new Polynom(s);
+		return ans;
 	}
 }

@@ -1,11 +1,39 @@
 package Ex1;
 
 public class ComplexFunction implements complex_function{
+	/**
+	 * l = left function
+	 * op = operation between the function
+	 * r = right function
+	*/
 	function l;
 	Operation op;
 	function r;
 
-
+	public ComplexFunction() {
+	}
+	
+	public ComplexFunction(Operation op, function left, function right) {
+		super();
+		this.op = op;
+		this.l = left;
+		this.r = right;
+	}
+	
+	public ComplexFunction(function f) {
+		super();
+		this.l = f;
+		this.r = null;
+		this.op = Operation.None;
+	}
+	
+	public ComplexFunction(String s, function f1L, function f2R) {
+		super();
+		this.l = f1L;
+		this.r = f2R;
+		s = s.toLowerCase();
+	}
+	
 	public ComplexFunction(String s) {
 		String op = "";
 		String left = "";
@@ -54,41 +82,77 @@ public class ComplexFunction implements complex_function{
 			}
 		}
 		this.op = Operation.None;
-		if (op.equals("add") || op.equals("plus")) {//TODO
+		if (op.equals("add") || op.equals("plus")) {
 			this.op = Operation.Plus;
 		}
+		if (op.equals("multiply") || op.equals("times")) {
+			this.op = Operation.Times;
+		}
+		if (op.equals("div") || op.equals("Divid")) {
+			this.op = Operation.Divid;
+		}
+		if (op.equals("max")) {
+			this.op = Operation.Max;
+		}
+		if (op.equals("min")) {
+			this.op = Operation.Min;
+		}
+		if (op.equals("comp")) {
+			this.op = Operation.Comp;
+		}
 	}
-	
-	
+
+
 	public String toString() {
 		String string = "";
 		string = string + this.op.toString() + "(" + this.l.toString() + "," + this.r.toString() + ")";
 		return string;
 	}
-		
 
+	/**
+	 * The function return the value
+	 * of x in f(x)
+	 */
 	@Override
 	public double f(double x) {
 		double ans = 0;
 		double ansL = this.l.f(x);
 		double ansR = this.r.f(x);
-		if(this.op.toString().equals("Plus"))//TODO
-			return ansL + ansR;
-		return 0;
+		if(this.op.toString().equals("Plus"))
+			return (ansL + ansR);
+		if(this.op.toString().equals("Times"))
+			return (ansL * ansR);
+		if(this.op.toString().equals("Divid"))
+			return (ansL / ansR);
+		if(this.op.toString().equals("Max"))
+			return Math.max(ansL, ansR);
+		if(this.op.toString().equals("Min"))
+			return Math.min(ansL, ansR);
+		if(this.op.toString().equals("Comp"))
+			return l.f(ansR);
+
+		return ans;
 	}
 
 	@Override
 	public function initFromString(String s) {
-		ComplexFunction anser = new ComplexFunction(s);
-		return anser;
+		ComplexFunction ans = new ComplexFunction(s);
+		return ans;
 	}
 
+	/**
+	 * copy of function
+	 */
 	@Override
 	public function copy() {
-		ComplexFunction anser = new ComplexFunction(this.toString());
-		return anser;
+		ComplexFunction ans = new ComplexFunction(this.toString());
+		return ans;
 	}
 
+	/**
+	 * The functions are all
+	 * operation between the right side and left side
+	 */
 	@Override
 	public void plus(function f1) {
 		ComplexFunction left = new ComplexFunction(this.toString());
@@ -99,34 +163,47 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public void mul(function f1) {
-		// TODO Auto-generated method stub
-
+		ComplexFunction left = new ComplexFunction(this.toString());
+		this.l = left;
+		this.op = Operation.Times;
+		this.r = f1;
 	}
 
 	@Override
 	public void div(function f1) {
-		// TODO Auto-generated method stub
-
+		ComplexFunction left = new ComplexFunction(this.toString());
+		this.l = left;
+		this.op = Operation.Divid;
+		this.r = f1;
 	}
 
 	@Override
 	public void max(function f1) {
-		// TODO Auto-generated method stub
-
+		ComplexFunction left = new ComplexFunction(this.toString());
+		this.l = left;
+		this.op = Operation.Max;
+		this.r = f1;
 	}
 
 	@Override
 	public void min(function f1) {
-		// TODO Auto-generated method stub‫‪‬‬
-
+		ComplexFunction left = new ComplexFunction(this.toString());
+		this.l = left;
+		this.op = Operation.Min;
+		this.r = f1;
 	}
 
 	@Override
 	public void comp(function f1) {
-		// TODO Auto-generated method stub
-
+		ComplexFunction left = new ComplexFunction(this.toString());
+		this.l = left;
+		this.op = Operation.Comp;
+		this.r = f1;
 	}
 
+	//TODO equal
+	
+	
 	@Override
 	public function left() {
 		return this.l;
@@ -134,13 +211,11 @@ public class ComplexFunction implements complex_function{
 
 	@Override
 	public function right() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.r;
 	}
 
 	@Override
 	public Operation getOp() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.op;
 	}
 }

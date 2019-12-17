@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import com.google.*;
+import com.google.gson.Gson;
 
 public class Functions_GUI implements functions {
 	public LinkedList<function> list;
@@ -17,80 +19,74 @@ public class Functions_GUI implements functions {
 
 	@Override
 	public boolean add(function arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ansToReturn = this.list.add(arg0);
+		return ansToReturn;
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends function> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ansToReturn = this.list.addAll(arg0);
+		return ansToReturn;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		this.list.clear();
 	}
 
 	@Override
 	public boolean contains(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ansToReturn = this.list.contains(arg0);
+		return ansToReturn;
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ansToReturn = this.list.containsAll(arg0);
+		return ansToReturn;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.list.isEmpty();
 	}
 
 	@Override
 	public Iterator<function> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.list.iterator();
 	}
 
 	@Override
 	public boolean remove(Object arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ansToReturn = this.list.remove(arg0);
+		return ansToReturn;
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ansToReturn = this.list.removeAll(arg0);
+		return ansToReturn;		
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> arg0) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean ansToReturn = this.list.retainAll(arg0);
+		return ansToReturn;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.list.size();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.list.toArray();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] arg0) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.list.toArray(arg0);
 	}
 
 	@Override
@@ -141,17 +137,27 @@ public class Functions_GUI implements functions {
 			return;
 		}
 	}
-
+	
+	
+	//TODO equal
+	
+	
 	@Override
 	public void drawFunctions(int width, int height, Range rx, Range ry, int resolution) {
 		// TODO Auto-generated method stub
-
+		try {
+			PolynomGraph pg = new PolynomGraph()
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void drawFunctions(String json_file) {
-		// TODO Auto-generated method stub
-
+		Gson gson = new Gson();
+		String json = gson.toJson(json_file);
 	}
 
 }

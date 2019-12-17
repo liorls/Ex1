@@ -10,7 +10,7 @@ import java.util.Comparator;
  * @author Boaz
  */
 
-public class Monom implements function‫‪‬‬
+public class Monom implements function
 {
     public static final Monom ZERO = new Monom(0, 0);
     public static final Monom MINUS1 = new Monom(-1, 0);
@@ -127,7 +127,7 @@ public class Monom implements function‫‪‬‬
         }
     }
 
-    public void add(Monom m)
+	public void add(Monom m)
     {
 		if (this.get_power() != m.get_power())
 		{
@@ -185,16 +185,19 @@ public class Monom implements function‫‪‬‬
     /* base fields */
     private double _coefficient;
     private int _power;
+    
+    public Monom() {
+   	}
 
 	@Override
 	public function initFromString(String s) {
-		// TODO Auto-generated method stub
-		return null;
+		Monom ans = new Monom(s);
+		return ans;
 	}
 
 	@Override
 	public function copy() {
-		// TODO Auto-generated method stub
-		return null;
+		Monom copy = new Monom(this.toString());
+		return copy;
 	}
 }
